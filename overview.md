@@ -1,3 +1,4 @@
+<link href="style.css" rel="stylesheet"></link>
 # .NET Compiler Platform ("Roslyn") 概要
 
 原文：[.NET Compiler Platform ("Roslyn") Overview](http://roslyn.codeplex.com/wikipage?title=Overview)
@@ -356,11 +357,11 @@ C#のソースコードテキスト内にある識別子はUnicodeの
 たとえば：
 
 <div>
-<span><span style="">if</span> (x > <span style="">3</span>)</span>
-<span>{</span>
-<span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="">// 問題あり</span></span>
-<span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="">throw</span> <span style="">new</span> <span style="">Exception</span>(<span style="">"不正です。"</span>);&nbsp;&nbsp;<span style="">// より適切な例外がある？</span></span>
-<span>}</span>
+<div><span class="keyword">if</span> (x > <span class="literal">3</span>)</div>
+<div>{</div>
+<div class="fullspan">&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// 問題あり</span></div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;<div class="span"><span class="keyword">throw</span> <span class="keyword">new</span> <span class="ident">Exception</span>(<span style="literal">"不正です。"</span>);</div>&nbsp;&nbsp;<span style="comment">// より適切な例外がある？</span></div>
+<div>}</div>
 </div>
 
 ブロック内にあるステートメントノードの`Span`は赤色の下線で表される範囲になります。
