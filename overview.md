@@ -1,5 +1,7 @@
 # .NET Compiler Platform ("Roslyn") 概要
 
+原文：[.NET Compiler Platform ("Roslyn") Overview](http://roslyn.codeplex.com/wikipage?title=Overview)
+
 (ダウンロード: [roslyn-overview.pdf](http://www.codeplex.com/Download?ProjectName=roslyn&DownloadId=822125))
 
 ## コンテンツ
@@ -123,7 +125,14 @@ End-User Previewを必要とせず、Visual Studioとは独立してアプリケ
 
 ### <a name="api_layers"></a>APIレイヤー
 
+.NET Compiler Platform ("Roslyn")はコンパイラーAPIとワークスペースAPIという、
+主に2層のAPIから構成されます。
+
+![APIレイヤー](img/alex-api-layers.png)
+
 #### <a name="compiler_apis"></a>コンパイラーAPI
+
+
 
 #### <a name="workspaces_apis"></a>ワークスペースAPI
 
