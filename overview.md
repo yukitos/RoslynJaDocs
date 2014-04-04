@@ -1,9 +1,8 @@
-<link href="style.css" rel="stylesheet"></link>
 # .NET Compiler Platform ("Roslyn") 概要
 
 原文：[.NET Compiler Platform ("Roslyn") Overview](http://roslyn.codeplex.com/wikipage?title=Overview)
 
-(ダウンロード: [roslyn-overview.pdf](http://www.codeplex.com/Download?ProjectName=roslyn&DownloadId=822125))
+(ダウンロード: [roslyn-overview.pdf (英語)](http://www.codeplex.com/Download?ProjectName=roslyn&DownloadId=822125))
 
 ## コンテンツ
 
@@ -356,13 +355,7 @@ C#のソースコードテキスト内にある識別子はUnicodeの
 
 たとえば：
 
-<div>
-<div><span class="keyword">if</span> (x > <span class="literal">3</span>)</div>
-<div>{</div>
-<div class="fullspan">&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// 問題あり</span></div>
-<div>&nbsp;&nbsp;&nbsp;&nbsp;<div class="span"><span class="keyword">throw</span> <span class="keyword">new</span> <span class="ident">Exception</span>(<span style="literal">"不正です。"</span>);</div>&nbsp;&nbsp;<span style="comment">// より適切な例外がある？</span></div>
-<div>}</div>
-</div>
+![SpanとFullSpan](img/span_and_fullspan.png)
 
 ブロック内にあるステートメントノードの`Span`は赤色の下線で表される範囲になります。
 ここには`throw new Exception("不正です。");`という文字列が含まれます。
