@@ -358,7 +358,7 @@ C#のソースコードテキスト内にある識別子はUnicodeの
 ![SpanとFullSpan](img/span_and_fullspan.png)
 
 ブロック内にあるステートメントノードの`Span`は赤色の下線で表される範囲になります。
-ここには`throw new Exception("不正です。");`という文字列が含まれます。
+ここには`throw new Exception("Not right.");`という文字列が含まれます。
 `FullSpan`はオレンジ色の下線で表される範囲です。
 ここには`Span`と同じ文字列だけでなく、前方および後方のトリヴィアも含まれます。
 
