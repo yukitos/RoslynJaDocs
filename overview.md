@@ -2,7 +2,7 @@
 
 原文：[.NET Compiler Platform ("Roslyn") Overview](http://roslyn.codeplex.com/wikipage?title=Overview)
 
-(ダウンロード: [roslyn-overview.pdf (英語)](http://www.codeplex.com/Download?ProjectName=roslyn&DownloadId=822125))
+(ダウンロード: [roslyn-overview.pdf](http://www.codeplex.com/Download?ProjectName=roslyn&DownloadId=822125))
 
 ## コンテンツ
 
