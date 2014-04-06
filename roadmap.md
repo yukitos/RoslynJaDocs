@@ -1,4 +1,4 @@
-[原文：Roadmap](http://roslyn.codeplex.com/wikipage?title=Roadmap)
+原文：[Roadmap](http://roslyn.codeplex.com/wikipage?title=Roadmap)
 
 将来的な目標は主に2つの大きなカテゴリに分けることができます。
 1つは活発に機能を開発すること、そしてもう1つは品質向上です。

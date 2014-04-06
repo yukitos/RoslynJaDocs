@@ -1,6 +1,6 @@
 # サンプル
 
-[原文：Samples and Walkthroughs](http://roslyn.codeplex.com/wikipage?title=Samples)
+原文：[Samples and Walkthroughs](http://roslyn.codeplex.com/wikipage?title=Samples)
 
 以下のサンプルは[SDK Preview](http://go.microsoft.com/fwlink/?LinkId=394641)
 パッケージのSamplesフォルダ以下にあります：
