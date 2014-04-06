@@ -43,8 +43,8 @@ Ilya Grigorikによる
 [Contributor License Agreement](https://cla.msopentech.com/) (CLA) 
 にサインする必要があります。
 CLAを完了するには[フォーム](https://cla.msopentech.com/)からリクエストを送信して、
-受信したメールに記述されたリンクの先にあるドキュメントに電子署名をしたものを
-送り返す必要があります。
+受信したメールに記述されたリンクの先にあるドキュメントに
+電子署名をする必要があります。
 CLAの手続きが必要になるのは1度だけです。
 1度行えばすべてのMicrosoft Open Technologies OSSプロジェクトに参加できます。
 
