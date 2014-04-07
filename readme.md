@@ -2,7 +2,7 @@
 
 このドキュメントは非公式に翻訳している/されたものです。
 
-正式なドキュメントについては http://roslyn.codeplex.com/ にあるものを
+最新かつ正式なドキュメントについては http://roslyn.codeplex.com/ にあるものを
 参照するようにしてください。
 
 **誤訳や誤字については是非[Issuesの登録](https://github.com/yukitos/RoslynJaDocs/issues)、あるいはPull Requestをお願いします。**
