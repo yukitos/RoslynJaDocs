@@ -4,7 +4,7 @@
 * [サンプルおよびウォークスルー](samples.md)
 * [ロードマップ](roadmap.md)
 * [貢献方法について](contribute.md)
-* [ビルド、テスト、デバッグの方法](build.md)
+* [ビルド、テスト、デバッグ](build.md)
 * [FAQ](faq.md)
 
 # 言語設計
