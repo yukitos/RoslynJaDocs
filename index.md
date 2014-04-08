@@ -3,7 +3,7 @@
 * [Roslynの概要](overview.md)
 * [サンプルおよびウォークスルー](samples.md)
 * [ロードマップ](roadmap.md)
-* [貢献方法について](contribute.md)
+* [貢献方法について](how_to_contribute.md)
 * [ビルド、テスト、デバッグ](build.md)
 * [FAQ](faq.md)
 
