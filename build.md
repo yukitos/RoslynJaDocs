@@ -42,7 +42,7 @@ NuGet Package Managerの一部のバージョンではパッケージの復元�
 ### Visual Studio 2013 Update 2 RC (推奨)
 
 VS2013の以前のビルドを使用した場合の問題点については今のところ把握していませんが、
-多くのテストは既にUpdate 2 RCの環境で実行されていることもあり、
+多くのテストが既にUpdate 2 RCの環境で実行されていることもあり、
 Update 2 RCのインストールを推奨します。
 
 ## コードを取得する
@@ -67,7 +67,7 @@ Update 2 RCのインストールを推奨します。
   5. [分岐のチェックアウト]にチェックがあることを確認します。
   6. [分岐の作成]をクリックします。
 
-> 注意：`master`とreleases/build-preview`ではAPIが異なります。
+> 注意：`master`と`releases/build-preview`ではAPIが異なります。
   `master`をビルドした場合、変更をVisual Studio上で
   テストできなくなることに注意してください。
 
@@ -98,12 +98,12 @@ RoslynバイナリはMicrosoftの厳密名キーを使用して遅延署名さ�
      [管理者として実行]を選択します。
 2. 複製を作成したディレクトリに移動します。
    たとえば`cd /d C:\Code\Roslyn`のようにします。
-   以下の手順ではこのディレクトリを<clone dir>として参照します。
+   以下の手順ではこのディレクトリを`<clone dir>`として参照します。
 3. スクリプトを実行します：
    `Src\Tools\Microsoft.CodeAnalysis.Toolset.Open\Scripts\Prepare.bat`
 
 > 注意：Roslyn試験用VSハイヴを削除して厳密名の検証を復元したい場合には
-  `**u**`を指定してこのコマンド実行します。
+  **`u`**を指定してこのコマンド実行します。
 
 ## NuGetパッケージのダウンロード
 
