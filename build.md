@@ -186,13 +186,13 @@ Visual StudioはビルドしたバイナリのAPIを多数呼び出して機能�
 [xUnit 2.0 runners NuGet Package](https://www.nuget.org/packages/xunit.runners/2.0.0-alpha-build2576)
 にあるmsbuildランナーを使用してすべてのユニットテストが実行されます。
 結果は`<clone dir>\UnitTestResults.html`という名前のファイルに出力されます。
-まだ修正されていないバグに対するユニットテストを追加しておいてスキップするという
-ポリシーを採用しているため、いくつかの警告が表示されるのは意図的なものです。
+我々は未修正バグに対するユニットテストを追加しておいてスキップするという
+ポリシーを採用しているため、いくつかの警告が表示されるのは想定内です。
 
 ### ユニットテストの失敗をデバッグする
 
 ユニットテストプロジェクトは先のパッケージに同梱されている
-`xunit.console.x86.exe`を使用してデバッグすることが出来ます：
+`xunit.console.x86.exe`を使用してデバッグ出来ます：
 
 1. デバッグしたいテストを含むユニットテストプロジェクトのプロパティを開きます。
 2. [デバッグ]タブを選択します。
@@ -216,7 +216,7 @@ Visual StudioはビルドしたバイナリのAPIを多数呼び出して機能�
 
 管理者として実行している開発者コマンド プロンプト for VS2013で
 次のコマンドを実行します：
-`rc\Tools\Microsoft.CodeAnalysis.Toolset.Open\Scripts\Prepare.bat u`
+`Src\Tools\Microsoft.CodeAnalysis.Toolset.Open\Scripts\Prepare.bat u`
 
 ### コードの削除
 
