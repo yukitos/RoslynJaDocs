@@ -811,7 +811,7 @@ Roslynのコンパイル要素を作成して、それを使用するように�
 
 Roslyn Visual Studio拡張機能プロジェクトをデバッグする際に起動されるVisual Studioの
 インスタンスはRoslyn「ハイヴ」(あるいはVSが拡張を見つけ出すレジストリ階層)
-と呼ばれる環境下で実行されます
+と呼ばれる環境下で実行されます。
 コマンドラインから
 `devenv.exe /rootsuffix Roslyn`
 を実行すれば、同じ環境で動作するVisual Studioのインスタンスが使用できます。
