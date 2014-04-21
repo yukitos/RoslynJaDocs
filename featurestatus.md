@@ -21,7 +21,7 @@
 
 | 機能                             | 例                                                              | [C#][link01] | [VB][link02] |
 |:---------------------------------|:----------------------------------------------------------------|:-------------|:-------------|
-| プライマリコンストラクタ         | class Point**(int x, int y)** { ... }                           | Done         | Maybe        |
+| プライマリコンストラクタ         | class Point **(int x, int y)** { ... }                           | Done         | Maybe        |
 | 自動実装プロパティ初期化子       | public int X { get; set; } **= x;**                             | Done         | Exists       |
 | ゲッターのみの自動実装プロパティ | public int Y **{ get; }** = y;                                  | Done         | Done         |
 | staticメンバーのusing            | using System.**Console;** ... **Write**(4);                     | Done         | Exists       |
@@ -35,24 +35,24 @@
 | ガードケース                     | Select Case i : Case Is > 0 **When i Mod 2 = 0**                | No           | Done         |
 | 部分モジュール                   | **Partial Module** M1                                           | N/A          | Done         |
 | 部分インターフェイス             | **Partial Interface** I1                                        | Exists       | Done         |
-| 複数行文字列リテラル             | "Hello**<newline>**World"                                       | Exists       | Done         |
+| 複数行文字列リテラル             | "Hello **<newline>** World"                                     | Exists       | Done         |
 | 年を先頭にした日付リテラル       | Dim d = #**2014-04-03**#                                        | N/A          | Done         |
 | 2進数リテラル                    | **0b00000100**                                                  | Planned      | Done         |
-| 桁セパレーター                   | 0xEF_FF_00_A0                                                   | Planned      | Done         |
+| 桁セパレーター                   | 0xEF**_**FF**_**00**_**A0                                       | Planned      | Done         |
 | 行継続コメント                   | Dim addrs = From c in Customers **' comment**                   | N/A          | Done         |
 | TypeOf IsNot                     | If **TypeOf** x **IsNot** Customer Then ...                     | N/A          | Done         |
 | 式をボディに持つメンバー         | public double Dist **=> Sqrt(X * X + Y * Y);**                  | Planned      | No           |
 | イベント初期化子                 | new Customer { **Notify +=** MyHandler };                       | Planned      | Planned      |
-| [Null伝搬](link03)               | customer**?.**Orders**?**\[5\]**?.**$price                        | Planned      | Planned      |
+| [Null伝搬](link03)               | customer **?.** Orders **?** \[5\] **?.** $price                | Planned      | Planned      |
 | セミコロン演算子                 | (var x = Foo()**;** Write(x)**;** x * x)                        | Planned      | Maybe        |
 | private protected                | **private protected** string GetId() { ... }                    | Planned      | Planned      |
 | params IEnumerable               | int Avg(**paras IEnumerable<int>** numbers) { ... }             | Planned      | Planned      |
 | コンストラクタの推論             | new **Tuple**(3, "three", true);                                | Planned      | Planned      |
-| [文字列補完][link04]             | "**\{**p.First**} \{**p.Last**}** は **\{**p.Age**}** 歳です。" | Maybe        | Maybe        |
+| [文字列補完][link04]             | "**\\{** p.First **} \\{** p.Last **}** は **\\{** p.Age **}** 歳です。" | Maybe | Maybe      |
 | nullableに対するTryCast          | Dim x = **TryCast**(u, **Integer?**)                            | Exists       | Planned      |
 | +を使用したデリゲートの連結      | d1 **+=** d2                                                    | Exists       | Planned      |
 | 明示的な実装                     | Class C : **Implicitly** Implements I                           | Exists       | Planned      |
-| NameOf 演算子                    | string s = **nameof(**Console.Write**);**                       | Planned      | Planned      |
+| NameOf 演算子                    | string s = **nameof(** Console.Write **);**                     | Planned      | Planned      |
 | [Strictモジュール][link05]       | **Strict** Module M                                             | Exists       | Planned      |
 
 [link01]: csharp_languagedesign.md
