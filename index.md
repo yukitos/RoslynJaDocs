@@ -11,11 +11,7 @@
 
 * [C#の言語設計に関するメモ](csharp_languagedesign.md)
 * [Visual Basicの言語設計に関するメモ](vb_languagedesign.md)
-* 言語機能のステータス
-
-<!---
 * [言語機能のステータス](featurestatus.md)
---->
 
 # ツール
 
