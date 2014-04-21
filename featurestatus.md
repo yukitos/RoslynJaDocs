@@ -35,11 +35,11 @@
 | ガードケース                     | Select Case i : Case Is > 0 **When i Mod 2 = 0**                | No           | Done         |
 | 部分モジュール                   | **Partial Module** M1                                           | N/A          | Done         |
 | 部分インターフェイス             | **Partial Interface** I1                                        | Exists       | Done         |
-| 複数行文字列リテラル             | "Hello **<newline>** World"                                     | Exists       | Done         |
+| 複数行文字列リテラル             | "Hello **\<newline\>** World"                                   | Exists       | Done         |
 | 年を先頭にした日付リテラル       | Dim d = #**2014-04-03**#                                        | N/A          | Done         |
 | 2進数リテラル                    | **0b00000100**                                                  | Planned      | Done         |
-| 桁セパレーター                   | 0xEF**_**FF**_**00**_**A0                                       | Planned      | Done         |
-| 行継続コメント                   | Dim addrs = From c in Customers **' comment**                   | N/A          | Done         |
+| 桁セパレーター                   | 0xEF **_** FF **_** 00 **_** A0                                 | Planned      | Done         |
+| 行継続コメント                   | Dim addrs = From c in Customers **' コメント**                  | N/A          | Done         |
 | TypeOf IsNot                     | If **TypeOf** x **IsNot** Customer Then ...                     | N/A          | Done         |
 | 式をボディに持つメンバー         | public double Dist **=> Sqrt(X * X + Y * Y);**                  | Planned      | No           |
 | イベント初期化子                 | new Customer { **Notify +=** MyHandler };                       | Planned      | Planned      |
