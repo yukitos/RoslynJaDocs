@@ -43,13 +43,17 @@ Roslynのシンタックスツリーを調査したり、検索したりする�
 Syntax Visualizer上で調査できるようになります。
 Visualizerは[表示]-[その他のウィンドウ]-[Roslyn Syntax Visualizer]から起動できます。
 
-![Syntax Visualizerの起動](img/syntax_visualizer01.png "図1 Syntax Visualizerの起動")
+図1 Syntax Visualizerの起動
+
+![Syntax Visualizerの起動](img/syntax_visualizer01.png)
 
 すると以下のようなウィンドウが表示されます。
 このツールウィンドウはVisual Studio内の適当な位置にドッキングしておくとよいでしょう。
 筆者としてはよく左側にドッキングさせています。
 
-![Syntax Visualizerツールウィンドウ](img/syntax_visualizer02.png "図2 Syntax Visualizerツールウィンドウ")
+図2 Syntax Visualizerツールウィンドウ
+
+![Syntax Visualizerツールウィンドウ](img/syntax_visualizer02.png)
 
 次に[ファイル]-[新規作成]を選択してプロジェクトを作成します。
 VB と C# のどちらでも構いません。
@@ -61,9 +65,13 @@ Visualizerツールウィンドウ内ではファイルに対するシンタッ�
 表示されているコードに対するシンタックスツリーが
 常に表示されるという点に注意してください。
 
-![C#のシンタックスツリーを可視化](img/syntax_visualizer03.png "図3 C#のシンタックスツリーを可視化")
+図3 C#のシンタックスツリーを可視化
 
-![VBのシンタックスツリーを可視化](img/syntax_visualizer04.png "図4 VBのシンタックスツリーを可視化")
+![C#のシンタックスツリーを可視化](img/syntax_visualizer03.png)
+
+図4 VBのシンタックスツリーを可視化
+
+![VBのシンタックスツリーを可視化](img/syntax_visualizer04.png)
 
 上の図からもわかるように、Visualizerツールウィンドウの上部にはシンタックスツリー、
 下部にはプロパティグリッドが表示されます。
@@ -77,7 +85,9 @@ Visualizerツールウィンドウ内ではファイルに対するシンタッ�
 「Legend」というタイトルのボタンをクリックすると、それぞれどの色が何に対して
 使用されているのかを確認できます。
 
-![Legend](img/syntax_visualizer05.png "図5 Legend")
+図5 Legend
+
+![Legend](img/syntax_visualizer05.png)
 
 ツリー内の項目にはそれぞれ固有の「スパン」があります。
 たとえば先の C# の例であれば、選択中の `UsingKeyword [0..5)` トークンは
