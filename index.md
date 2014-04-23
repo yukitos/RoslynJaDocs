@@ -16,10 +16,5 @@
 # ツール
 
 * [Syntax Visualizer](syntax_visualizer.md)
-* Syntax Quoter
-* RoslynによるEnhanced source view
-
-<!---
-* [Syntax Quoter](syntax_quoter.md)
-* Roslynによる[Enhanced source view](enhanced_source_view.md)
---->
+* Syntax Quoter (http://roslynquoter.azurewebsites.net/)
+* RoslynによるEnhanced source view (http://source.roslyn.codeplex.com/)
