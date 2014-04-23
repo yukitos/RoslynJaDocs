@@ -169,8 +169,147 @@ Visualizer上では特別な色で表示することにより、それぞれに�
 
 ## <a name="inspecting_semantics"></a> セマンティクスの調査
 
+Syntax Visualizerにはシンボルやセマンティクスの情報を調査するための
+基本的な機能がいくつか用意されています。
+いくつか例を紹介しましょう。
+セマンティクスの分析に関連するAPIについては
+[.NET Compiler Platform ("Roslyn") 概要](overview.md)
+のドキュメントを参照してください。
+
+先のC#プロジェクトにおいて、 `Main()` 内に `double x = 1 + 1;` と入力します。
+
+そしてコードエディタウィンドウで `1 + 1` の式を選択します。
+するとVisualizer上ではこのコードに対応した `AddExpression` ノードが
+ハイライト表示されます。
+`AddExpression` ノード上で右クリックから **View Symbol (if any)** を選択します。
+
+図11 式に対するシンボルを表示する
+
+![式に対するシンボルを表示する](img/syntax_visualizer11.png)
+
+Visualizerのプロパティグリッドが更新されて、式に対するシンボルが
+`Kind = Method`のSynthesizedIntrinsicOperatorSymbolであることが確認できます。
+
+図12 Symbol プロパティ
+
+![Symbol プロパティ](img/syntax_visualizer12.png)
+
+次に同じ `AddExpression` ノード上で **View TypeSymbol (if any)** を選択します。
+今度は選択した式の型が `Int32` だということがVisualizerの
+プロパティグリッドから確認できます。
+
+図13 TypeSymbol プロパティ
+
+![TypeSymbol プロパティ](img/syntax_visualizer13.png)
+
+次に同じ `AddExpression` ノード上で **View Converted TypeSymbol (if any)**
+を選択します。
+今度は式の型としては `Int32` だったものの、式を変換した後の型は `Double`
+になるということが確認できます
+(これは割り当て演算子の左側にある変数 `x` の型に合わせて、
+ `Int32` の式を `Double` に変換する必要があるためです)。
+
+図14 Converted TypeSymbol プロパティ
+
+![Converted TypeSymbol プロパティ](img/syntax_visualizer14.png)
+
+最後に、やはり同じ `AddExpression` ノード上で **View Constant Value (if any)** を
+選択します。
+プロパティグリッド上では式の値がコンパイル時定数 `2` となることが確認できます。
+
+図15 定数値
+
+![定数値](img/syntax_visualizer15.png)
+
+これまでの調査結果はVBの場合でも同じです。
+VBファイル内で ｀Dim x As Double = 1 + 1` と入力して、
+コードエディタ上で `1 + 1` を選択します。
+するとVisualizer上で `AddExpression` ノードがハイライト表示されるので、
+上の手順を `AddExpression` に対して実行すれば全く同じ結果が確認できるでしょう。
+
+今度はVBで別の例を試してみましょう。
+VBファイルのコードを以下の図と同じになるように変更してください。
+このコードでは1行目で `C` という(System.Consoleへの)エイリアスを定義して、
+これを `Main()` 内で使用しています。
+`Main()` 内のエイリアスを使用しているコードを選択します(下図を参照)。
+するとVisualizer上では対応する `IdentifierName` ノードがハイライト表示されます。
+右クリックから **View Symbol (if any)** を選択します。
+
+図16 識別子に対するシンボルを表示する
+
+![識別子に対するシンボルを表示する](img/syntax_visualizer16.png)
+
+プロパティグリッドから、この識別子が `System.Console` に
+結びつけられていることが確認できます。
+
+図17 Symbol プロパティ
+
+![Symbol プロパティ](img/syntax_visualizer17.png)
+
+次に、同じ `IdentifierName` ノードで **View AliasSymbol (if any)** を選択します。
+するとこの識別子が `System.Console` をTargetとするような `C` という
+エイリアスであることがプロパティグリッドで確認できます。
+別の言い方をすると、識別子 `C` と関連した `AliasSymbol` の情報が
+プロパティグリッドで表示されたというわけです。
+
+図18 AliasSymbol プロパティ
+
+![AliasSymbol プロパティ](img/syntax_visualizer18.png)
+
+なおVisualizerにて、各ノード上でView Symbol (if any)を選択すれば、
+宣言された型やメソッド、プロパティなど、様々なものに対するシンボルが
+調査できます。
+たとえば先ほどの例で ｀Sub Main()` をコードエディタで選択した後、
+Visualizer上で `SubBlock` を選択してView Symbol (if any)をクリックすると、
+`SubBlock` の名前が `Main` で、返り値が `Void` の `MethodSymbol` であることが
+プロパティグリッドで確認できます。
+
+図19 メソッド宣言に対するシンボルを表示
+
+![メソッド宣言に対するシンボルを表示](img/syntax_visualizer19.png)
+
+この VB の例は簡単に C# へ移植できます
+(エイリアスを定義するには `Imports C = System.Console` と同じように
+ `using C = System.Console;` と入力します)。
+C# で上と同じ操作をすれば同じ結果が得られます。
+
+これまでに説明した、シンボルの意味を調査する操作はノードに対してのみ有効で、
+トークンやトリヴィアには行えないことに注意してください。
+また、必ずしもすべてのノードが興味深い意味的情報を持つとは
+限らないことにも注意してください。
+有効な意味的情報を持たないノードに対して **View \*Symbol (if any)** を
+クリックしても何も起こりません(つまり有効な情報が返されません)。
+このように、有効な意味的情報が返されなかった場合には
+Visualizerのプロパティグリッドが空になります。
+
+図20 選択したノードに対して有効な意味的情報がない場合は空のプロパティグリッドが表示される
+
+![選択したノードに対して有効な意味的情報がない場合は空のプロパティグリッドが表示される](img/syntax_visualizer20.png)
 
 ## <a name="closing_disabling_syntax_visualizer"></a> Syntax Visualizerの閉じ方/無効化
 
+Visualizerツールウィンドウは任意のタイミングで閉じることができ、
+閉じたとしても何の影響もないはずです。
+また、Visual Studioの[ツール]-[拡張機能と更新プログラム]メニューから
+Visualizer拡張機能を無効化したりアンインストールしたりすることができます。
 
 ## <a name="feedback"></a> フィードバック
+
+どうか皆さんがSyntax Visualizerツールを使用して楽しく学習することが
+出来ますように願っています。
+このツールを試してコードを探索したり、
+.NET Compiler Platform (“Roslyn”) API を使った機能豊富な
+アプリケーションや拡張機能を作成したりしてみてください。
+
+我々はこのテクノロジープレビューを皆さんが手に取られることを
+とてもうれしく思うと同時に、プレビューに関する一般的な事項や
+Syntax Visualizerツールも含めて、是非フィードバックやアイディア、
+提案などいただければ幸いです。
+Visualizerに関する一般的なフィードバックについては
+[こちら](https://roslyn.codeplex.com/discussions/topics/6001/general)、
+問題を発見した場合には
+[こちら](https://roslyn.codeplex.com/workitem/list/basic)
+から報告をお願いします。
+また、プレビューに関する様々なフィードバック方法の一覧については
+[こちら](http://roslyn.codeplex.com/wikipage?title=Questions%2c%20Comments%2c%20and%20Feedback)
+を参照してください。
