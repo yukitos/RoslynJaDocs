@@ -15,12 +15,11 @@
 
 # ツール
 
-* Syntax Visualizer
+* [Syntax Visualizer](syntax_visualizer.md)
 * Syntax Quoter
 * RoslynによるEnhanced source view
 
 <!---
-* [Syntax Visualizer](syntax_visualizer.md)
 * [Syntax Quoter](syntax_quoter.md)
 * Roslynによる[Enhanced source view](enhanced_source_view.md)
 --->
