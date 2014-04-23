@@ -222,7 +222,7 @@ Visualizerのプロパティグリッドが更新されて、式に対するシ�
 ![定数値](img/syntax_visualizer15.png)
 
 これまでの調査結果はVBの場合でも同じです。
-VBファイル内で ｀Dim x As Double = 1 + 1` と入力して、
+VBファイル内で `Dim x As Double = 1 + 1` と入力して、
 コードエディタ上で `1 + 1` を選択します。
 するとVisualizer上で `AddExpression` ノードがハイライト表示されるので、
 上の手順を `AddExpression` に対して実行すれば全く同じ結果が確認できるでしょう。
@@ -259,7 +259,7 @@ VBファイルのコードを以下の図と同じになるように変更して
 なおVisualizerにて、各ノード上でView Symbol (if any)を選択すれば、
 宣言された型やメソッド、プロパティなど、様々なものに対するシンボルが
 調査できます。
-たとえば先ほどの例で ｀Sub Main()` をコードエディタで選択した後、
+たとえば先ほどの例で `Sub Main()` をコードエディタで選択した後、
 Visualizer上で `SubBlock` を選択してView Symbol (if any)をクリックすると、
 `SubBlock` の名前が `Main` で、返り値が `Void` の `MethodSymbol` であることが
 プロパティグリッドで確認できます。
