@@ -91,7 +91,7 @@ C#のソーステキストがパースされる方法、
   * Visual Studioで[ファイル]-[新規作成]-[プロジェクト]を選択して
     [新しいプロジェクト]ダイアログを表示します。
   * [Visual C#]-[Roslyn] 以下から [Console Application] を選択します。
-  * プロジェクトの名前を `**GettingStartedCS**` として[OK]をクリックします。
+  * プロジェクトの名前を **`GettingStartedCS`** として[OK]をクリックします。
 2. 以下のコードを `Main` メソッド内に入力します：
 
    ```csharp
