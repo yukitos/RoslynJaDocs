@@ -64,11 +64,11 @@
 (Visual Studio上で[表示]-[その他のウィンドウ]-[Roslyn Syntax Visualizer]を選択)、
 ツリービューには下図のように表示されます：
 
-<span style="color:#6400FD;">SyntaxNode: 青</span>
+<div style="color:#6400FD;">SyntaxNode: 青</div>
 
-<span style="color:#006400;">SyntaxToken: 緑</span>
+<div style="color:#006400;">SyntaxToken: 緑</div>
 
-<span style="color:#AA0064;">SyntaxTrivia: 赤</span>
+<div style="color:#AA0064;">SyntaxTrivia: 赤</div>
 
 C# コードファイル
 
