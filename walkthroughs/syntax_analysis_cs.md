@@ -1,5 +1,7 @@
 # はじめに：Syntax Analysis
 
+原文：[Getting Started - Syntax Analysis (CSharp) Word docx](http://www.codeplex.com/Download?ProjectName=roslyn&DownloadId=822182)
+
 2014年3月
 
 ## 必須項目
@@ -83,7 +85,7 @@ C# コードファイル
 C#のソーステキストがパースされる方法、
 およびソース内にある引数の宣言を検索する方法について説明します。
 
-### 例：ツリーの手動による走査
+#### 例：ツリーの手動による走査
 
 1. C# Roslyn Console Applicationプロジェクトを新規作成します。
   * Visual Studioで[ファイル]-[新規作成]-[プロジェクト]を選択して
@@ -243,3 +245,266 @@ C#のソーステキストがパースされる方法、
        }
    }
    ```
+
+### クエリメソッド
+
+`SyntaxNode` から派生したクラスのプロパティを使用して走査する以外にも、
+`SyntaxNode` に定義されたクエリメソッドを使用してシンタックスツリーを走査することもできます。
+これらのメソッドはXPathになじみがあればすぐに使いこなすことができるようになるでしょう。
+これらのメソッドとLINQを組み合わせることにより、対象をツリー内から手早く見つけ出せるはずです。
+
+#### 例：クエリメソッドを使用する
+
+1. IntelliSenseを使用して、 `root` 変数に対して呼び出すことが出来る
+   `SyntaxNode` のメンバーを確認してください。
+  * `DescendantNodes` `AncestorsAndSelf` `ChildNodes` といったクエリメソッドがあることを
+    確認してください。
+2. `Main` メソッドの末尾に以下のステートメントを追加してください。
+   1つめのステートメントではLINQ式と `DescendantNodes` メソッドを使用して、
+   先ほどの例と同じ引数リストを取得しています：
+
+   ```csharp
+   var firstParameters = from methodDeclaration in root.DescendantNodes()
+                                       .OfType<MethodDeclarationSyntax>()
+                         where methodDeclaration.Identifier.ValueText == "Main"
+                         select methodDeclaration.ParameterList.Parameters.First();
+   
+   var argsParameter2 = firstParameters.Single();
+   ```
+
+3. プログラムのデバッグを開始します。
+4. イミディエイト ウィンドウを開きます。
+  * Visual Studioのメニューから[デバッグ]-[ウィンドウ]-[イミディエイト]を選択します。
+5. イミディエイト ウィンドウ内で `argsParameter == argsParameter2` と入力してエンターキーを押し、
+   式を評価します。
+  * LINQ式を使用した場合でも、マニュアルでツリーを検索した場合と同じ引数が
+    見つかることを確認してください。
+6. プログラムを停止します。
+
+### SyntaxWalkers
+
+たとえばファイル内にあるすべてのプロパティ宣言を見つけたい場合などのように、
+シンタックスツリー内から特定の型を持つノードをすべて見つけ出したいということがよくあるでしょう。
+`CSharpSyntaxWalker` クラスを拡張して `VisitPropertyDeclaration` メソッドをオーバーライドすると、
+シンタックスツリーがどのような構造になっているのかを事前に把握せずに
+それぞれのプロパティ宣言を処理することができます。
+`CSharpSyntaxWalker` はシンタックスツリー内のノードとその子要素を
+再帰的に処理していく `SyntaxVisitor` の特殊なクラスです。
+
+#### 例：SyntaxWalkerを実装する
+
+この例ではシンタックスツリー全体を走査して、
+`System` ではない名前空間をインポートする `using` ディレクティブを
+集めるような `CSharpSyntaxWalker` を実装する方法を説明します。
+
+1. C# Roslyn Console Applicationプロジェクトを `UsingCollectorCS` という名前で新規作成します。
+2. `Main` メソッド内に以下のコードを入力します：
+
+   ```csharp
+               SyntaxTree tree = CSharpSyntaxTree.ParseText(
+   @"using System;
+   using System.Collections.Generic;
+   using System.Linq;
+   using System.Text;
+   using Microsoft.CodeAnalysis;
+   using Microsoft.CodeAnalysis.CSharp;
+   
+   namespace TopLevel
+   {
+       using Microsoft;
+       using System.ComponentMode;
+   
+       namespace Child1
+       {
+           using Microsoft.Win32;
+           using System.Runtime.InteropServices;
+   
+           class Foo { }
+       }
+   
+       namespace Child2
+       {
+           using System.CodeDom;
+           using Microsoft.CSharp;
+   
+           class Bar { }
+       }
+   }");
+   
+               var root = (CompilationUnitSyntax)tree.GetRoot();
+   ```
+
+3. このソーステキストには4カ所に渡ってあちこちに `using` ディレクティブが
+   あることを確認してください。
+   ファイルレベル、トップレベルの名前空間内、そして2つのネストされた名前空間内にあります。
+4. プロジェクトにクラスファイルを追加します。
+  1. Visual Studio上で[プロジェクト]-[クラスの追加]を選択します。
+  2. [新しい項目の追加]ダイアログでファイルの名前として `UsingCollector.cs` と入力します。
+5. `Microsoft.CodeAnalysis` 名前空間と `Microsoft.CodeAnalysis.CSharp` 名前空間の
+   `using` ディレクティブを追加します。
+
+   ```csharp
+   using Microsoft.CodeAnalysis;
+   using Microsoft.CodeAnalysis.CSharp;
+   using Microsoft.CodeAnalysis.CSharp.Syntax;
+   ```
+
+6. 作成した `UsingCollector` クラスを `CSharpSyntaxWalker` クラスから派生させます：
+
+   ```csharp
+       class UsingCollector : CSharpSyntaxWalker
+   ```
+
+7. `UsingCollector` クラス内で public readonlyフィールドを宣言します。
+   この変数には見つけ出した `UsingDirectiveSyntax` を格納することになります：
+
+   ```csharp
+           public readonly List<UsingDirectiveSyntax> Usings = new List<UsingDirectiveSyntax>();
+   ```
+
+8. `VisitUsingDirective` メソッドをオーバーライドします：
+
+   ```csharp
+           public override void VisitUsingDirective(UsingDirectiveSyntax node)
+           {
+               
+           }
+   ```
+
+9. IntelliSenseを使用して、このメソッドの `node` 引数経由で呼び出すことができる
+   `UsingDirectiveSyntax` クラスのメンバーを確認します。
+  * `NameSyntax` 型の `Name` プロパティがあることを確認してください。
+    ここにはインポートされた名前空間の名前が格納されます。
+
+10. `VisitUsingDirective` メソッドを以下のように書き換えて、
+    `Name` が `System` 名前空間あるいはそれに続く名前空間を参照していない
+    場合には `node` を `Usings` に追加するようにします：
+
+    ```csharp
+                if (node.Name.ToString() != "System" &&
+                    !node.Name.ToString().StartsWith("System."))
+                {
+                    this.Usings.Add(node);
+                }
+    ```
+
+11. `UsingCollector.cs` は以下のようになります：
+    
+    ```csharp
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using Microsoft.CodeAnalysis;
+    using Microsoft.CodeAnalysis.CSharp;
+    using Microsoft.CodeAnalysis.CSharp.Syntax;
+    
+    namespace UsingCollectorCS
+    {
+        class UsingCollector : CSharpSyntaxWalker
+        {
+            public readonly List<UsingDirectiveSyntax> Usings = new List<UsingDirectiveSyntax>();
+    
+            public override void VisitUsingDirective(UsingDirectiveSyntax node)
+            {
+                if (node.Name.ToString() != "System" &&
+                    !node.Name.ToString().StartsWith("System."))
+                {
+                    this.Usings.Add(node);
+                }
+            }
+        }
+    }
+    ```
+
+12. `Program.cs` ファイルに戻ります。
+13. `Main` メソッドの末尾に以下のコードを追加して `UsingCollector` のインスタンスを作成し、
+    このインスタンスを使用してシンタックスツリーを走査し、
+    集められた `UsingDirectiveSyntax` ノードを走査して
+    それぞれの名前を `Console` に出力させます：
+
+    ```csharp
+                var collector = new UsingCollector();
+                collector.Visit(root);
+    
+                foreach (var directive in collector.Usings)
+                {
+                    Console.WriteLine(directive.Name);
+                }
+    ```
+
+14. `Program.cs` は以下のようになります：
+
+    ```csharp
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using Microsoft.CodeAnalysis;
+    using Microsoft.CodeAnalysis.CSharp;
+    using Microsoft.CodeAnalysis.CSharp.Symbols;
+    using Microsoft.CodeAnalysis.CSharp.Syntax;
+    using Microsoft.CodeAnalysis.Text;
+    
+    namespace UsingCollectorCS
+    {
+        class Program
+        {
+            static void Main(string[] args)
+            {
+                SyntaxTree tree = CSharpSyntaxTree.ParseText(
+    @"using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using Microsoft.CodeAnalysis;
+    using Microsoft.CodeAnalysis.CSharp;
+    
+    namespace TopLevel
+    {
+        using Microsoft;
+        using System.ComponentMode;
+    
+        namespace Child1
+        {
+            using Microsoft.Win32;
+            using System.Runtime.InteropServices;
+    
+            class Foo { }
+        }
+    
+        namespace Child2
+        {
+            using System.CodeDom;
+            using Microsoft.CSharp;
+    
+            class Bar { }
+        }
+    }");
+    
+                var root = (CompilationUnitSyntax)tree.GetRoot();
+    
+                var collector = new UsingCollector();
+                collector.Visit(root);
+    
+                foreach (var directive in collector.Usings)
+                {
+                    Console.WriteLine(directive.Name);
+                }
+            }
+        }
+    }
+    ```
+
+15. Ctrl+F5 キーを押してデバッグ無しで実行します。
+    すると以下のように表示されるでしょう：
+
+    ![UsingCollectorCSの実行結果](img/syntax_analysis_cs02.png)
+
+16. Walkerが4カ所すべてにある非 `System` 名前空間の `using` ディレクティブを
+    見つけてきたことが確認できます。
+17. おめでとうございます！
+    以上で**シンタックスAPI**を使用して、
+     C# のソースコードから特定の種類のC# ステートメントやディレクティブを
+    見つけ出すことができました。
