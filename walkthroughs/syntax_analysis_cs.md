@@ -92,26 +92,26 @@ C#のソーステキストがパースされる方法、
   * プロジェクトの名前を `**GettingStartedCS**` として[OK]をクリックします。
 2. 以下のコードを `Main` メソッド内に入力します：
 
-```csharp
-SyntaxTree tree = CSharpSyntaxTree.ParseText(
-@"using System;
-using System.Collections;
-using System.Linq;
-using System.Text;
-
-namespace HelloWorld
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            Console.WriteLine(""Hello, World!"");
-        }
-    }
-}");
-
-var root = (CompilationUnitSyntax)tree.GetRoot();
-```
+   ```csharp
+   SyntaxTree tree = CSharpSyntaxTree.ParseText(
+   @"using System;
+   using System.Collections;
+   using System.Linq;
+   using System.Text;
+   
+   namespace HelloWorld
+   {
+       class Program
+       {
+           static void Main(string[] args)
+           {
+               Console.WriteLine(""Hello, World!"");
+           }
+       }
+   }");
+   
+   var root = (CompilationUnitSyntax)tree.GetRoot();
+   ```
 
 3. カーソルを `Main` メソッドの**閉じ括弧**がある行に移動させて
    ブレークポイントを設定します。
@@ -130,9 +130,9 @@ var root = (CompilationUnitSyntax)tree.GetRoot();
 6. ルートの`CompilatonUnitSyntax`変数の最初の要素を新しい変数に格納するために
    以下のコードを`Main`メソッドの末尾に追記してください：
 
-```csharp
-    var firstMember = root.Members[0];
-```
+   ```csharp
+       var firstMember = root.Members[0];
+   ```
 
 7. このステートメントが次に実行されるように設定して、
    ステートメントを実行してください。
@@ -146,9 +146,9 @@ var root = (CompilationUnitSyntax)tree.GetRoot();
   * 実行時の型が `NamespaceDeclarationSyntax` であることを確認してください。
 9. このノードを `NamespaceDeclarationSyntax` にキャストして、新しい変数に格納します：
 
-```csharp
-    var helloWorldDeclaration = (NamespaceDeclarationSyntax)firstMember;
-```
+   ```csharp
+       var helloWorldDeclaration = (NamespaceDeclarationSyntax)firstMember;
+   ```
 
 10. このステートメントを実行して `helloWorldDeclaration` 変数を調査します。
   * `CompilationUnitSyntax` と同じく、 `NamespaceDeclarationSyntax` には
@@ -159,17 +159,17 @@ var root = (CompilationUnitSyntax)tree.GetRoot();
     * 実行時の型が `ClassDeclarationSyntax` であることを確認してください。
 12. このノードを `ClassDeclarationSyntax` にキャストして新しい変数に格納します：
 
-```csharp
-var programDeclaration = (ClassDeclarationSyntax)helloWorldDeclaration.Members[0];
-```
+   ```csharp
+   var programDeclaration = (ClassDeclarationSyntax)helloWorldDeclaration.Members[0];
+   ```
 
 13. このステートメントを実行します。
 14. `programDeclaration.Members` コレクション内にある `Main` 宣言を
     新しい変数に格納します：
 
-```csharp
-    var mainDeclaration = (MethodDeclarationSyntax)programDeclaration.Members[0];
-```
+   ```csharp
+       var mainDeclaration = (MethodDeclarationSyntax)programDeclaration.Members[0];
+   ```
 
 15. このステートメントを実行して `MethodDeclarationSyntax` オブジェクトの
     メンバーを調査します。
@@ -181,9 +181,9 @@ var programDeclaration = (ClassDeclarationSyntax)helloWorldDeclaration.Members[0
       確認してください。
 16. `Main` 宣言の1番目の引数を変数に格納します：
 
-```csharp
-    var argsParameters = mainDeclaration.ParameterList.Parameters[0];
-```
+   ```csharp
+       var argsParameters = mainDeclaration.ParameterList.Parameters[0];
+   ```
 
 17. このステートメントを実行して `argsParameter` 変数を調査します。
   * `Identifier` プロパティを確認してください。
@@ -194,52 +194,52 @@ var programDeclaration = (ClassDeclarationSyntax)helloWorldDeclaration.Members[0
   * Visual Studio上で[デバッグ]-[デバッグの停止]を選択します。
 19. この時点で以下のようなコードになっているはずです：
 
-```csharp
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp;
-using Microsoft.CodeAnalysis.CSharp.Symbols;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.CodeAnalysis.Text;
-
-namespace GettingStartedCS
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            SyntaxTree tree = CSharpSyntaxTree.ParseText(
-@"using System;
-using System.Collections;
-using System.Linq;
-using System.Text;
-
-namespace HelloWorld
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            Console.WriteLine(""Hello, World!"");
-        }
-    }
-}");
-
-            var root = (CompilationUnitSyntax)tree.GetRoot();
-
-            var firstMember = root.Members[0];
-
-            var helloWorldDeclaration = (NamespaceDeclarationSyntax)firstMember;
-
-            var programDeclaration = (ClassDeclarationSyntax)helloWorldDeclaration.Members[0];
-
-            var mainDeclaration = (MethodDeclarationSyntax)programDeclaration.Members[0];
-
-            var argsParameters = mainDeclaration.ParameterList.Parameters[0];
-        }
-    }
-}
-```
+   ```csharp
+   using System;
+   using System.Collections.Generic;
+   using System.Linq;
+   using System.Text;
+   using Microsoft.CodeAnalysis;
+   using Microsoft.CodeAnalysis.CSharp;
+   using Microsoft.CodeAnalysis.CSharp.Symbols;
+   using Microsoft.CodeAnalysis.CSharp.Syntax;
+   using Microsoft.CodeAnalysis.Text;
+   
+   namespace GettingStartedCS
+   {
+       class Program
+       {
+           static void Main(string[] args)
+           {
+               SyntaxTree tree = CSharpSyntaxTree.ParseText(
+   @"using System;
+   using System.Collections;
+   using System.Linq;
+   using System.Text;
+   
+   namespace HelloWorld
+   {
+       class Program
+       {
+           static void Main(string[] args)
+           {
+               Console.WriteLine(""Hello, World!"");
+           }
+       }
+   }");
+   
+               var root = (CompilationUnitSyntax)tree.GetRoot();
+   
+               var firstMember = root.Members[0];
+   
+               var helloWorldDeclaration = (NamespaceDeclarationSyntax)firstMember;
+   
+               var programDeclaration = (ClassDeclarationSyntax)helloWorldDeclaration.Members[0];
+   
+               var mainDeclaration = (MethodDeclarationSyntax)programDeclaration.Members[0];
+   
+               var argsParameters = mainDeclaration.ParameterList.Parameters[0];
+           }
+       }
+   }
+   ```
