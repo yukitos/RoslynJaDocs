@@ -1,4 +1,4 @@
-# はじめに：Syntax Analysis
+# 入門：Syntax Analysis
 
 原文：[Getting Started - Syntax Analysis (CSharp) Word docx](http://www.codeplex.com/Download?ProjectName=roslyn&DownloadId=822182)
 
@@ -16,9 +16,9 @@
 現在、Visual Basic や C# コンパイラはブラックボックス、つまり
 テキストを入力するとバイト列が出力されるものであり、
 コンパイルパイプラインの中間フェーズも全く不透明なものです。
-**.NET Compiler Platform** (通称"Roslyn：ロズリン") を使用すると、
+**.NET Compiler Platform** (通称"Roslyn") を使用すると、
 コンパイラがコードを理解するために秘密裏に蓄積および補完していた情報とともに、
-コンパイラの使用するデータ構造やアルゴリズムと同じものをツールで利用したり、
+コンパイラの使用するデータ構造やアルゴリズムと同じものを独自のツールで利用したり、
 開発者が使用したりすることができるようになります。
 
 このウォークスルーでは **シンタックスAPI (Syntax API)** について説明します。
