@@ -6,7 +6,7 @@
 
 ## 必須項目
 
-* 入門：Syntax Analysis
+* [入門：Syntax Analysis](syntax_analysis_cs.md)
 * Visual Studio 2013
 * "Roslyn" End User Preview
 * "Roslyn" SDK プロジェクトテンプレート
@@ -124,8 +124,8 @@
 
 ## セマンティックモデル
 
-`Compilation` が生成出来たので、次はこの `Compilation` に含まれる
-任意の `SyntaxTree` に対応する `SemanticModel` を問い合わせることが出来ます。
+`Compilation` が生成出来たので、次はこの `Compilation` を含んだ
+任意の `SyntaxTree` に対して `SemanticModel` を問い合わせることが出来ます。
 `SemanticModel` を使用すると、「この位置のスコープにはどんな名前がありますか？」
 だとか、「このメソッドからはどんなメンバーにアクセス出来ますか？」だとか、
 「このテキストブロックではどんな変数が使用されていますか？」だとか、
@@ -238,79 +238,79 @@
 8. `Program.cs` は以下のようになっています：
 
    ```csharp
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp;
-using Microsoft.CodeAnalysis.CSharp.Symbols;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.CodeAnalysis.Text;
-
-namespace SemanticsCS
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            SyntaxTree tree = CSharpSyntaxTree.ParseText(
-@"using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace HelloWorld
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            Console.WriteLine(""Hello, World!"");
-        }
-    }
-}");
-
-            var root = (CompilationUnitSyntax)tree.GetRoot();
-
-            var compilation = CSharpCompilation.Create("HelloWorld")
-                                               .AddReferences(
-                                                    new MetadataFileReference(
-                                                        typeof(object).Assembly.Location))
-                                               .AddSyntaxTrees(tree);
-
-            var model = compilation.GetSemanticModel(tree);
-
-            var nameInfo = model.GetSymbolInfo(root.Usings[0].Name);
-
-            var systemSymbol = (INamespaceSymbol)nameInfo.Symbol;
-
-            foreach (var ns in systemSymbol.GetNamespaceMembers())
-            {
-                Console.WriteLine(ns.Name);
-            }
-
-            var helloWorldString = root.DescendantNodes()
-                                       .OfType<LiteralExpressionSyntax>()
-                                       .First();
-
-            var literalInfo = model.GetTypeInfo(helloWorldString);
-
-            var stringTypeSymbol = (INamedTypeSymbol)literalInfo.Type;
-
-            Console.Clear();
-            foreach (var name in (from method in stringTypeSymbol.GetMembers()
-                                                                .OfType<IMethodSymbol>()
-                                  where method.ReturnType.Equals(stringTypeSymbol) &&
-                                        method.DeclaredAccessibility == Accessibility.Public
-                                  select method.Name).Distinct())
-            {
-                Console.WriteLine(name);
-            }
-        }
-    }
-}
+   using System;
+   using System.Collections.Generic;
+   using System.Linq;
+   using System.Text;
+   using Microsoft.CodeAnalysis;
+   using Microsoft.CodeAnalysis.CSharp;
+   using Microsoft.CodeAnalysis.CSharp.Symbols;
+   using Microsoft.CodeAnalysis.CSharp.Syntax;
+   using Microsoft.CodeAnalysis.Text;
+   
+   namespace SemanticsCS
+   {
+       class Program
+       {
+           static void Main(string[] args)
+           {
+               SyntaxTree tree = CSharpSyntaxTree.ParseText(
+   @"using System;
+   using System.Collections.Generic;
+   using System.Text;
+   
+   namespace HelloWorld
+   {
+       class Program
+       {
+           static void Main(string[] args)
+           {
+               Console.WriteLine(""Hello, World!"");
+           }
+       }
+   }");
+   
+               var root = (CompilationUnitSyntax)tree.GetRoot();
+   
+               var compilation = CSharpCompilation.Create("HelloWorld")
+                                                  .AddReferences(
+                                                       new MetadataFileReference(
+                                                           typeof(object).Assembly.Location))
+                                                  .AddSyntaxTrees(tree);
+   
+               var model = compilation.GetSemanticModel(tree);
+   
+               var nameInfo = model.GetSymbolInfo(root.Usings[0].Name);
+   
+               var systemSymbol = (INamespaceSymbol)nameInfo.Symbol;
+   
+               foreach (var ns in systemSymbol.GetNamespaceMembers())
+               {
+                   Console.WriteLine(ns.Name);
+               }
+   
+               var helloWorldString = root.DescendantNodes()
+                                          .OfType<LiteralExpressionSyntax>()
+                                          .First();
+   
+               var literalInfo = model.GetTypeInfo(helloWorldString);
+   
+               var stringTypeSymbol = (INamedTypeSymbol)literalInfo.Type;
+   
+               Console.Clear();
+               foreach (var name in (from method in stringTypeSymbol.GetMembers()
+                                                                   .OfType<IMethodSymbol>()
+                                     where method.ReturnType.Equals(stringTypeSymbol) &&
+                                           method.DeclaredAccessibility == Accessibility.Public
+                                     select method.Name).Distinct())
+               {
+                   Console.WriteLine(name);
+               }
+           }
+       }
+   }
    ```
 
 9. おめでとうございます！
-   これで `Symbol` と **バインディングAPI** を使用して、
+   これで **シンボル** と **バインディングAPI** を使用して、
    C#プログラム内にある名前や式の意味を分析することが出来るようになりました。
