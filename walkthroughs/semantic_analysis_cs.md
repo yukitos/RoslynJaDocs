@@ -235,7 +235,7 @@
 
   ![System.Stringで文字列を返すpublicメソッド](img/semantic_analysis_cs02.png)
 
-8. `Program.cs` は以下のようになっています：
+8. 最終的に `Program.cs` は以下のようになります：
 
    ```csharp
    using System;
